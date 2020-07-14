@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "jeb_.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BeaconBlockEntityRendererMixin",
+    "CatCollarFeatureRendererMixin",
+    "TropicalFishEntityMixin",
+    "WolfCollarFeatureRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "id": "jeb_",
+  "version": "0.0.0",
+  "environment": "CLIENT",
+  "authors": ["ramidzkh"],
+  "license": ["MIT"],
+  "mixins": ["mixins.jeb_.json"]
+}
