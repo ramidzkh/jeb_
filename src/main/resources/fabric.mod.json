@@ -1,9 +1,11 @@
 {
   "schemaVersion": 1,
   "id": "jeb_",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "environment": "CLIENT",
+  "mixins": ["mixins.jeb_.json"],
   "authors": ["ramidzkh"],
   "license": ["MIT"],
-  "mixins": ["mixins.jeb_.json"]
+  "name": "jeb_",
+  "description": "Makes things have the classic sheep rainbow effect when named jeb_"
 }
