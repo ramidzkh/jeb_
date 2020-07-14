@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "jeb_",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "environment": "CLIENT",
   "mixins": ["mixins.jeb_.json"],
   "authors": ["ramidzkh"],

@@ -26,10 +26,14 @@ package jeb_.mixins;
 
 import jeb_.JebColors;
 import net.minecraft.block.entity.BeaconBlockEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BeaconBlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,7 +43,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import java.util.Map;
 
 @Mixin(BeaconBlockEntityRenderer.class)
-public class BeaconBlockEntityRendererMixin {
+public abstract class BeaconBlockEntityRendererMixin {
 
     private static final Map<BeaconBlockEntity, Boolean> ACTIVE_BEACONS = JebColors.ACTIVE_BEACONS;
 
@@ -54,13 +58,29 @@ public class BeaconBlockEntityRendererMixin {
                 ACTIVE_BEACONS.remove(beaconBlockEntity);
             }
 
+            check:
             if (!ACTIVE_BEACONS.containsKey(beaconBlockEntity)) {
                 ACTIVE_BEACONS.put(beaconBlockEntity, false);
 
                 for (Entity entity : world.getEntities(null, new Box(beaconBlockEntity.getPos()).expand(48))) {
                     if (entity.hasCustomName() && "jeb_".equals(entity.getName().asString())) {
                         ACTIVE_BEACONS.put(beaconBlockEntity, true);
-                        break;
+                        break check;
+                    }
+                }
+
+                BlockPos beaconPos = beaconBlockEntity.getPos();
+
+                for (BlockPos blockPos : BlockPos.iterate(beaconPos.add(-5, -5, -5), beaconPos.add(5, 5, 5))) {
+                    BlockEntity blockEntity = world.getBlockEntity(blockPos);
+
+                    if (blockEntity instanceof SignBlockEntity) {
+                        for (Text text : ((SignBlockEntityAccessor) blockEntity).getText()) {
+                            if (text != null && text.getString().contains("jeb_")) {
+                                ACTIVE_BEACONS.put(beaconBlockEntity, true);
+                                break check;
+                            }
+                        }
                     }
                 }
             }

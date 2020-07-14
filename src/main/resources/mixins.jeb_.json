@@ -6,6 +6,7 @@
   "mixins": [
     "BeaconBlockEntityRendererMixin",
     "CatCollarFeatureRendererMixin",
+    "SignBlockEntityAccessor",
     "TropicalFishEntityMixin",
     "WolfCollarFeatureRendererMixin"
   ],
